@@ -1,6 +1,14 @@
-(ns modern-cljs.core)
+(ns modern-cljs.core
+  (:use compojure.core)
+  (:require [compojure.handler :as handler]
+            [compojure.route :as route]))
 
-(defn foo
-  "I don't do a whole lot."
-  [x]
-  (println x "Hello, World!"))
+(defroutes app-routes
+  (GET "/" [] "<p>Hello from compojure</p>")
+  
+  (route/resources "/")
+  
+  (route/not-found "Page not found"))
+
+(def handler
+  (handler/site app-routes))
